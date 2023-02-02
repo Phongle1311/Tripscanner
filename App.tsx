@@ -1,12 +1,19 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text } from "react-native";
 import { TailwindProvider } from "tailwindcss-react-native";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <TailwindProvider>
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </TailwindProvider>
   );
 }
