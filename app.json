@@ -4,12 +4,12 @@
     "slug": "TripScanner",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app_icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/restaurants.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#70d9d3"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
