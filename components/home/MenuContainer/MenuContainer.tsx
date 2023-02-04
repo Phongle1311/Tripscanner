@@ -1,7 +1,15 @@
-import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  ImageSourcePropType,
+} from "react-native";
+import { NotFound } from "../../../assets/index";
 
 interface MenuContainerProps {
-  image: string;
+  image: ImageSourcePropType;
   name: string;
   action: () => void;
 }
@@ -9,8 +17,8 @@ interface MenuContainerProps {
 const MenuContainer = ({ image, name, action }: MenuContainerProps) => {
   return (
     <TouchableOpacity onPress={action} style={styles.container}>
-      <View style={styles.image}>
-        <Image source={require(image)} />
+      <View style={styles.imageWrapper}>
+        <Image source={image || NotFound} style={styles.image} />
       </View>
 
       <Text style={styles.text}>{name}</Text>
@@ -20,9 +28,18 @@ const MenuContainer = ({ image, name, action }: MenuContainerProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  image: {},
+  imageWrapper: {
+    backgroundColor: "#2b9fdc",
+    padding: 6,
+    borderRadius: 10,
+  },
+  image: {
+    width: 40,
+    height: 40,
+  },
   text: {},
 });
 

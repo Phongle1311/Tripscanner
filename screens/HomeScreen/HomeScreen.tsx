@@ -1,12 +1,15 @@
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, Image, StyleSheet, ScrollView } from "react-native";
 import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import HomeHeader from "../../components/home/HomeHeader/HomeHeader";
+import MenuContainer from "../../components/home/MenuContainer/MenuContainer";
+import { RootStackParamList } from "../../App";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Hotel, Attraction, Flight, Restaurant } from "../../assets/index";
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
+const HomeScreen = ({ navigation }: Props) => {
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
@@ -20,18 +23,55 @@ const HomeScreen = () => {
   }
 
   return (
-    <View>
-      <HomeHeader primaryText="Go travel" secondaryText="with us ..." />
+    <ScrollView>
+      <HomeHeader primaryText="Go wander" secondaryText="with Tripscanner" />
 
-      <View></View>
-    </View>
+      {/* Menu actions */}
+      <View style={styles.menuWrapper}>
+        <MenuContainer
+          image={Hotel}
+          name="Hotel"
+          action={() => navigation.navigate("List")}
+        />
+
+        <MenuContainer
+          image={Restaurant}
+          name="Restaurant"
+          action={() => navigation.navigate("List")}
+        />
+
+        <MenuContainer
+          image={Flight}
+          name="Flight"
+          action={() => navigation.navigate("List")}
+        />
+
+        <MenuContainer
+          image={Attraction}
+          name="Attraction"
+          action={() => navigation.navigate("List")}
+        />
+      </View>
+
+      {/* Voucher and discount */}
+      <View>
+        <Image
+          source={require("../../assets/tet_background.png")}
+          style={{ width: "100%", resizeMode: "contain" }}
+        />
+      </View>
+      {/* Popular */}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 12,
-    marginTop: 40,
+  menuWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 16,
+    paddingHorizontal: 8,
   },
 });
 
