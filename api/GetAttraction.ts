@@ -1,20 +1,5 @@
 import axios from "axios";
-
-interface AttractionsData {
-  name?: string;
-  location_string?: string;
-  photo?: any;
-}
-export default AttractionsData;
-
-interface GetAttractionDataParams {
-  locationId?: string;
-  lang?: string;
-  lunit?: "km" | "mi";
-  sort?: "recommended" | "ranking";
-  currency?: string;
-  offset?: string;
-}
+import { GetAttractionDataParams, ResponseData } from "./GetData";
 
 export const getAttractionData = async ({
   locationId,
@@ -23,7 +8,7 @@ export const getAttractionData = async ({
   sort,
   currency,
   offset,
-}: GetAttractionDataParams): Promise<AttractionsData[] | null> => {
+}: GetAttractionDataParams): Promise<ResponseData[] | null> => {
   try {
     const response = await axios.get(
       "https://travel-advisor.p.rapidapi.com/attractions/list",
@@ -44,8 +29,6 @@ export const getAttractionData = async ({
       }
     );
 
-    // console.log(response);
-    // console.log(response?.data);
     return response?.data?.data;
   } catch (error) {
     console.warn(error);

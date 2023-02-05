@@ -6,3 +6,6 @@ export { default as NotFound } from "./NotFound.png";
 export {default as Voucher1} from "./voucher1.png";
 export {default as Voucher2} from "./voucher2.png";
 export {default as Voucher3} from "./voucher3.png";
+export {default as AttractionCover} from "./attraction_cover.png";
+export {default as HotelCover} from "./hotel_cover.png";
+export {default as RestaurantCover} from "./restaurant_cover.png";

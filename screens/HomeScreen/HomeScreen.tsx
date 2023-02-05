@@ -13,6 +13,10 @@ import HomeHeader from "../../components/home/HomeHeader/HomeHeader";
 import MenuContainer from "../../components/home/MenuContainer/MenuContainer";
 import { RootStackParamList } from "../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import Voucher from "../../components/home/Voucher/Voucher";
+import { FontAwesome, Feather } from "@expo/vector-icons";
+import PopularPlaceItem from "../../components/home/PopularPlaceItem/PopularPlaceItem";
+import { getData, ResponseData } from "../../api/GetData";
 import {
   Hotel,
   Attraction,
@@ -21,17 +25,16 @@ import {
   Voucher1,
   Voucher3,
   Voucher2,
+  HotelCover,
+  RestaurantCover,
+  AttractionCover,
 } from "../../assets/index";
-import Voucher from "../../components/home/Voucher/Voucher";
-import { FontAwesome, Feather } from "@expo/vector-icons";
-import AttractionsData, { getAttractionData } from "../../api/GetAttraction";
-import PopularPlaceItem from "../../components/home/PopularPlaceItem/PopularPlaceItem";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Home">;
-
-const HomeScreen = ({ navigation }: Props) => {
+const HomeScreen = ({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, "Home">) => {
   const swingAnim = useRef(new Animated.Value(0)).current;
-  const [attractionData, setAttractionData] = useState<AttractionsData[]>([]);
+  const [attractionData, setAttractionData] = useState<ResponseData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
@@ -44,9 +47,8 @@ const HomeScreen = ({ navigation }: Props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    getAttractionData({}).then((data) => {
+    getData({ type: "attraction" }).then((data) => {
       data && setAttractionData(data);
-      console.log(data);
       setInterval(() => {
         setIsLoading(false);
       }, 2000);
@@ -90,25 +92,42 @@ const HomeScreen = ({ navigation }: Props) => {
         <MenuContainer
           image={Hotel}
           name="Hotel"
-          action={() => navigation.navigate("List")}
+          action={() =>
+            navigation.navigate("List", {
+              title: "Hotel",
+              description: "All hotels around you",
+              image: HotelCover,
+              type: "hotel",
+            })
+          }
         />
 
         <MenuContainer
           image={Restaurant}
           name="Restaurant"
-          action={() => navigation.navigate("List")}
+          action={() =>
+            navigation.navigate("List", {
+              title: "Restaurant",
+              description: "The suitable restaurant for you",
+              image: RestaurantCover,
+              type: "restaurant",
+            })
+          }
         />
 
-        <MenuContainer
-          image={Flight}
-          name="Flight"
-          action={() => navigation.navigate("List")}
-        />
+        <MenuContainer image={Flight} name="Flight" action={() => {}} />
 
         <MenuContainer
           image={Attraction}
           name="Attraction"
-          action={() => navigation.navigate("List")}
+          action={() =>
+            navigation.navigate("List", {
+              title: "Attraction",
+              description: "All the most attractive tourist attractions",
+              image: AttractionCover,
+              type: "attraction",
+            })
+          }
         />
       </View>
 
@@ -199,7 +218,7 @@ const HomeScreen = ({ navigation }: Props) => {
           </View>
         ) : attractionData && attractionData.length ? (
           <View style={styles.popularContainer}>
-            {attractionData.map((data, index) => (
+            {attractionData.map((data) => (
               <PopularPlaceItem
                 image={
                   data?.photo?.images?.medium?.url ||
@@ -207,7 +226,6 @@ const HomeScreen = ({ navigation }: Props) => {
                 }
                 name={data.name}
                 location={data.location_string}
-                key={index}
               />
             ))}
           </View>

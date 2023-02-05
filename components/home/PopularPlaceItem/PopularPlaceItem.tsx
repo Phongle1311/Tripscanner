@@ -6,17 +6,9 @@ interface PopularPlaceItemProps {
   image: string;
   name: string;
   location?: string;
-  key: number;
 }
 
-const PopularPlaceItem = ({
-  image,
-  name,
-  location,
-  key,
-}: PopularPlaceItemProps) => {
-  // key == 1 && console.log(name);
-  console.log(image);
+const PopularPlaceItem = ({ image, name, location }: PopularPlaceItemProps) => {
   return (
     <TouchableOpacity style={styles.container}>
       <Image source={{ uri: image }} resizeMode="cover" style={styles.image} />
