@@ -3,6 +3,7 @@ import axios from "axios";
 interface AttractionsData {
   name?: string;
   location_string?: string;
+  photo?: any;
 }
 export default AttractionsData;
 

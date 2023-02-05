@@ -25,6 +25,7 @@ import {
 import Voucher from "../../components/home/Voucher/Voucher";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import AttractionsData, { getAttractionData } from "../../api/GetAttraction";
+import PopularPlaceItem from "../../components/home/PopularPlaceItem/PopularPlaceItem";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -198,16 +199,22 @@ const HomeScreen = ({ navigation }: Props) => {
           </View>
         ) : attractionData && attractionData.length ? (
           <View style={styles.popularContainer}>
-            {attractionData.map((data) => (
-              <Text>data.data</Text>
+            {attractionData.map((data, index) => (
+              <PopularPlaceItem
+                image={
+                  data?.photo?.images?.medium?.url ||
+                  "https://cdn.pixabay.com/photo/2015/10/30/12/22/eat-1014025_1280.jpg"
+                }
+                name={data.name}
+                location={data.location_string}
+                key={index}
+              />
             ))}
           </View>
         ) : (
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Feather name="wifi-off" size={42} color="black" />
-            <Text>
-              {attractionData != null ? attractionData.length : "null"}
-            </Text>
+            <Text>Fail to connect server</Text>
           </View>
         )}
       </View>
@@ -249,7 +256,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     flexDirection: "row",
-    padding: 20,
+    paddingVertical: 8,
   },
 });
 
