@@ -6,11 +6,17 @@ interface PopularPlaceItemProps {
   image: string;
   name: string;
   location?: string;
+  action: () => void;
 }
 
-const PopularPlaceItem = ({ image, name, location }: PopularPlaceItemProps) => {
+const ItemComponent = ({
+  image,
+  name,
+  location,
+  action,
+}: PopularPlaceItemProps) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={action}>
       <Image source={{ uri: image }} resizeMode="cover" style={styles.image} />
       {name && (
         <Text style={styles.name}>
@@ -69,4 +75,4 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
 });
-export default PopularPlaceItem;
+export default ItemComponent;

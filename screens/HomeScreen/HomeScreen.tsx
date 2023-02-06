@@ -15,7 +15,6 @@ import { RootStackParamList } from "../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Voucher from "../../components/home/Voucher/Voucher";
 import { FontAwesome, Feather } from "@expo/vector-icons";
-import PopularPlaceItem from "../../components/home/PopularPlaceItem/PopularPlaceItem";
 import { getData, ResponseData } from "../../api/GetData";
 import {
   Hotel,
@@ -29,6 +28,7 @@ import {
   RestaurantCover,
   AttractionCover,
 } from "../../assets/index";
+import ItemComponent from "../../components/home/ItemComponent/ItemComponent";
 
 const HomeScreen = ({
   navigation,
@@ -219,13 +219,14 @@ const HomeScreen = ({
         ) : attractionData && attractionData.length ? (
           <View style={styles.popularContainer}>
             {attractionData.map((data) => (
-              <PopularPlaceItem
+              <ItemComponent
                 image={
                   data?.photo?.images?.medium?.url ||
                   "https://cdn.pixabay.com/photo/2015/10/30/12/22/eat-1014025_1280.jpg"
                 }
                 name={data.name}
                 location={data.location_string}
+                action={() => navigation.navigate("Detail", { data: data })}
               />
             ))}
           </View>

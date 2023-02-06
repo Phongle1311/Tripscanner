@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
-import PopularPlaceItem from "../../components/home/PopularPlaceItem/PopularPlaceItem";
+import ItemComponent from "../../components/home/ItemComponent/ItemComponent";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import { RootStackParamList } from "../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -55,7 +55,7 @@ const ListScreen = ({
           />
 
           <TouchableOpacity style={styles.filterButton}>
-            <FontAwesome name="filter" size={24} color="green" />
+            <FontAwesome name="filter" size={24} color="white" />
           </TouchableOpacity>
         </View>
 
@@ -66,7 +66,7 @@ const ListScreen = ({
         ) : dataArray && dataArray.length ? (
           <View style={styles.list}>
             {dataArray.map((data, index) => (
-              <PopularPlaceItem
+              <ItemComponent
                 image={
                   data?.photo?.images?.medium?.url ||
                   "https://cdn.pixabay.com/photo/2015/10/30/12/22/eat-1014025_1280.jpg"
@@ -74,6 +74,7 @@ const ListScreen = ({
                 name={data.name}
                 location={data.location_string}
                 key={index}
+                action={() => navigation.navigate("Detail", { data: data })}
               />
             ))}
           </View>

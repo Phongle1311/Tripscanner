@@ -32,7 +32,19 @@ export interface GetAttractionDataParams {
 export interface ResponseData {
   name?: string;
   location_string?: string;
+  email?:string;
+  address?:string;
+  phone?:string;
   photo?: any;
+  is_closed?: boolean;
+  rating?: string;
+  num_reviews?: number;
+  price?:string;
+  description?: string;
+  awards?: [];
+  cuisine?: [];
+  ranking?: string; 
+  website?: string;
 }
 
 export interface getDataParams {
